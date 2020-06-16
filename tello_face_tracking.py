@@ -16,18 +16,21 @@ video_writer = None
 # function to handle keyboard interrupt
 def signal_handler(sig, frame):
     print("Signal Handler")
-    if tello:
-        try:
-            tello.streamoff()
-            tello.land()
-        except:
-            pass
+   
+    try:
+        tello.streamoff()
+    except:
+        pass
 
-    if video_writer:
-        try:
-            video_writer.release()
-        except:
-            pass
+    try:
+        video_writer.release()
+    except:
+        pass
+
+    try:
+        tello.land()
+    except:
+        pass
 
     sys.exit()
 
@@ -68,7 +71,7 @@ def track_face_in_video_feed(exit_event, show_video_conn, video_writer_conn, run
 
     if fly:
         tello.takeoff()
-        tello.move_up(70)
+        #tello.move_up(70)
 
     face_center = ObjCenter("./haarcascade_frontalface_default.xml")
     pan_pid = PID(kP=0.7, kI=0.0001, kD=0.1)
@@ -150,7 +153,7 @@ def track_face_in_video_feed(exit_event, show_video_conn, video_writer_conn, run
                 print(int(pan_update), int(tilt_update))
                 if track_face and fly:
                     # left/right: -100/100
-                    tello.send_rc_control(pan_update // 3, 0, tilt_update // 2, 0)
+                    tello.send_rc_control(int(pan_update // 3), 0, int(tilt_update // 2), 0)
 
         # send frame to other processes
         show_video_conn.send(frame)
@@ -197,7 +200,7 @@ if __name__ == '__main__':
     run_pid = True
     track_face = True  # True - cause the Tello to start to track/follow a face
     save_video = True
-    fly = True
+    fly = False
 
     parent_conn, child_conn = Pipe()
     parent2_conn, child2_conn = Pipe()
