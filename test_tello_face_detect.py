@@ -28,6 +28,7 @@ signal.signal(signal.SIGINT, signal_handler)
 tello.connect()
 
 tello.streamon()
+tello.set_video_direction(Tello.CAMERA_DOWNWARD)
 
 frame_read = tello.get_frame_read()
 

@@ -13,7 +13,8 @@ frame_read = tello.get_frame_read()
 def videoRecorder():
     # create a VideoWrite object, recoring to ./video.avi
     height, width, _ = frame_read.frame.shape
-    video = cv2.VideoWriter('video.avi', cv2.VideoWriter_fourcc(*'XVID'), 30, (width, height))
+    print(height,width)
+    video = cv2.VideoWriter('video.mp4', cv2.VideoWriter_fourcc(*'mp4v'), 30, (width, height))
 
     while keepRecording:
         video.write(frame_read.frame)
@@ -27,10 +28,12 @@ def videoRecorder():
 recorder = Thread(target=videoRecorder)
 recorder.start()
 
-tello.takeoff()
-tello.move_up(100)
-tello.rotate_counter_clockwise(360)
-tello.land()
+#tello.takeoff()
+#tello.move_up(100)
+#tello.rotate_counter_clockwise(360)
+#tello.land()
+print(tello.get_battery() )
+time.sleep(1)
 
 keepRecording = False
 recorder.join()
