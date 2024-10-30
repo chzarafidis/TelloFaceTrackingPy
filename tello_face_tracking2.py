@@ -46,6 +46,15 @@ if __name__ == '__main__':
 
     tello = Tello() 
     tello.connect()
+ 
+    if tello.get_battery() < 30:
+        print("~~~~~~~~~~~~~~~~~~~~")
+        print(f"\nLOW Battery: {tello.get_battery()}%\n")
+        print("~~~~~~~~~~~~~~~~~~~~")
+        sys.exit()
+    else:
+        print(f"\nBattery Life: {tello.get_battery()}%\n")
+        
     tello.streamon()
     Tello.LOGGER.setLevel(logging.WARNING)
      
