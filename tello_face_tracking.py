@@ -69,9 +69,7 @@ if __name__ == '__main__':
         loop_time = time.time()
        
         frame_read = tello.get_frame_read()
-
         frame = frame_read.frame
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         H, W, _ = frame.shape
         print(H,W)
@@ -79,6 +77,8 @@ if __name__ == '__main__':
         frame = imutils.resize(frame, width=400)
         H, W, _ = frame.shape
         print(W,H)
+
+        gframe = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         if save_video == True and video_writer == None:
             video_file = f"video_{datetime.now().strftime('%d-%m-%Y_%I-%M-%S_%p')}.mp4"
@@ -163,7 +163,15 @@ if __name__ == '__main__':
                             (200, 200, 200), 2, cv2.LINE_AA)
 
         # display the frame to the screen
-        cv2.imshow("Drone Face Tracking", frame)
+
+        cv2.imshow("Gray - Drone Face Tracking", gframe)
+        cv2.imshow("Color - Drone Face Tracking", frame)      
+        
+        if frameCount == 0 :
+            cv2.moveWindow("Gray - Drone Face Tracking", 300,200)
+            cv2.moveWindow("Color - Drone Face Tracking", 800,200)
+
+
         if cv2.waitKey(1) & 0xFF == ord('q'):
             exit_event.set()
 
