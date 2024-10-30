@@ -155,9 +155,10 @@ def track_face_in_video_feed(exit_event, show_video_conn, video_writer_conn, run
                     # left/right: -100/100
                     tello.send_rc_control(int(pan_update // 3), 0, int(tilt_update // 2), 0)
 
-        # send frame to other processes
-        show_video_conn.send(frame)
-        video_writer_conn.send(frame)
+            # send frame to other processes
+            show_video_conn.send(frame)
+            video_writer_conn.send(frame)
+    
     # then we got the exit event so cleanup
     signal_handler(None, None)
 
@@ -170,7 +171,7 @@ def show_video(exit_event, pipe_conn):
         frame = pipe_conn.recv()
         # display the frame to the screen
         cv2.imshow("Drone Face Tracking", frame)
-        cv2.waitKey(1)
+
         if cv2.waitKey(1) & 0xFF == ord('q'):
             exit_event.set()
 
