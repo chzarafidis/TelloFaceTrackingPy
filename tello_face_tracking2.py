@@ -109,7 +109,7 @@ if __name__ == '__main__':
             cv2.rectangle(frame, (x, y), (x + w, y + h),
                         (0, 255, 0), 2)
 
-            # draw a circle in the center of the face
+            # draw a circle in the center of the faceq
             cv2.circle(frame, center=(objX, objY), radius=5, color=(255, 0, 0), thickness=-1)
 
             # Draw line from frameCenter to face center
