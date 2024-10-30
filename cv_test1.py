@@ -1,7 +1,7 @@
 import cv2
 
 # cv2.VideoCapture() allows you to read a video file or capture video from camera.
-vid_capture = cv2.VideoCapture('video_12-06-2020_08-19-53_PM.mp4')
+vid_capture = cv2.VideoCapture('video.mp4')
 #Get the frame rate
 fps = vid_capture.get(5)
 print('Frames per second : ', fps,'FPS')
