@@ -188,7 +188,7 @@ def video_recorder(pipe_conn, save_video, height=300, width=400):
     while True:
         frame = pipe_conn.recv()
         video_writer.write(frame)
-        time.sleep(1 / 30)
+        #time.sleep(1 / 30)
 
     # then we got the exit event so cleanup
     signal_handler(None, None)
@@ -222,4 +222,6 @@ if __name__ == '__main__':
         p2.join()
         p3.join()
 
+    exit_event.set()
+    time.sleep(60)
     print("Complete...")
